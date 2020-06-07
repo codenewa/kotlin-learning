@@ -1,1 +1,0 @@
-# Learning kotlin from jetbrains academy.
