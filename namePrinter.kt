@@ -1,145 +1,160 @@
-import java.util.*
+object CharacterPrinter{
 
-fun main(args: Array<String>) {
-
-/*
-    val name = "Bill Gates"
-    val status="VIP"
-*//*
-    val name="Tom Smith"
-    val status="Worker"
-*/
-    val name="Mr Anonimous"
-    val status="Participant"
-/*
-    val name="John S"
-    val status="Worker-coworker-superdupercoworker"
- */
-    val nameAllCaps= name.toUpperCase()
-    val nameLength = getPrintLength(nameAllCaps)
-    var statusLength = status.length
-
-    val printLength = getPrintLength(nameAllCaps)
-    writeStarLine(printLength+ 6)
-    printNameLine(2, nameAllCaps, 1)
-    printNameLine(2, nameAllCaps, 2)
-    printNameLine(2, nameAllCaps, 3)
-    writeStarLine(printLength+ 6)
-}
-
-fun getPadLength(name: String, status: String): Int{
-    return 0
-}
-
-fun printNameLine(padding: Int, name: String, line: Int){
-    print("*")
-    addPadding(padding)
-    for(char in name){
-        when(line){
-            1->writeCharLine1(char)
-            2->writeCharLine2(char)
-            3->writeCharLine3(char)
+    fun getCharLine1(char: Char):String{
+        return when(char){
+            in arrayOf('B','D','P','Z')->"___ "
+            in arrayOf('H','K','M','N','U','V','X')-> "_  _"
+            'I'-> "_"
+            'J'-> " _"
+            'L'-> "_   "
+            'T'-> "___"
+            'W'->"_ _ _"
+            'Y'->"_   _"
+            ' '-> "    "
+            else -> "____"
         }
-        print(' ')
     }
-    addPadding(padding-1)
-    println("*")
-}
 
-fun addPadding(paddingLength: Int){
-    for(i in 1..paddingLength){
-        print(" ")
+    fun getCharLine2(char: Char): String{
+        return when(char){
+            in arrayOf('A','H')->"|__|"
+            in arrayOf('B','P')->"|__]"
+            in arrayOf('C','L')->"|   "
+            'D'->"|  \\"
+            in arrayOf('E','F','G')->"|___"
+            'I'->"|"
+            'J'->" |"
+            'K'->"|_/ "
+            'M'->"|\\/|"
+            'N'->"|\\ |"
+            in arrayOf('O','Q','U','V')->"|  |"
+            'R'->"|__/"
+            'S'->"[__ "
+            'T'->" | "
+            'W'->"| | |"
+            'X'->" \\/ "
+            'Y'->" \\_/ "
+            ' '-> "    "
+            else ->"  / "
+        }
     }
-}
 
-fun writeStarLine(len: Int){
-    for(i in 1..len){
-        print('*')
+    fun getCharLine3(char: Char): String{
+        return when(char){
+            in arrayOf('A','H')->"|  |"
+            in arrayOf('B','G')->"|__]"
+            in arrayOf('C','E')->"|___"
+            'D'->"|__/"
+            in arrayOf('F','P')->"|   "
+            'I'->"|"
+            'J'->"_|"
+            'K'->"| \\_"
+            'L'->"|___"
+            'M'->"|  |"
+            'N'->"| \\|"
+            in arrayOf('O','U')->"|__|"
+            'Q'->"|_\\|"
+            'R'->"|  \\"
+            'S'->"___]"
+            'T'->" | "
+            'V'->" \\/ "
+            'W'->"|_|_|"
+            'X'->"_/\\_"
+            'Y'->"  |  "
+            ' '-> "    "
+            else ->" /__"
+        }
     }
-    println()
-}
 
-fun getPrintLength(name: String): Int{
-    var length = 0
-    for(char in name){
-        length += getCharLength(char)
+    fun getCharLength(character: Char):Int{
+        return when(character){
+            'T'-> 3
+            in arrayOf('W','Y')-> 5
+            'I'-> 1
+            'J'-> 2
+            ' '-> 4
+            else -> 4
+        }
     }
-    return length+name.length-1
-}
 
-fun getCharLength(character: Char):Int{
-    return when(character){
-        'T'-> 3
-        in arrayOf('W','Y')-> 5
-        'I'-> 1
-        'J'-> 2
-        ' '-> 4
-        else -> 4
-    }
-}
-
-fun writeCharLine1(char: Char){
-    when(char){
-        in arrayOf('B','D','P','Z')->print("___ ")
-        in arrayOf('H','K','M','N','U','V','X')-> print("_  _")
-        'I'-> print("_")
-        'J'-> print(" _")
-        'L'-> print("_   ")
-        'T'-> print("___")
-        'W'->print("_ _ _")
-        'Y'->print("_   _")
-        ' '-> print("    ")
-        else -> print("____")
-    }
-}
-
-fun writeCharLine2(char: Char){
-    when(char){
-        in arrayOf('A','H')->print("|__|")
-        in arrayOf('B','P')->print("|__]")
-        in arrayOf('C','L')->print("|   ")
-        'D'->print("|  \\")
-        in arrayOf('E','F','G')->print("|___")
-        'I'->print("|")
-        'J'->print(" |")
-        'K'->print("|_/ ")
-        'M'->print("|\\/|")
-        'N'->print("|\\ |")
-        in arrayOf('O','Q','U','V')->print("|  |")
-        'R'->print("|__/")
-        'S'->print("[__ ")
-        'T'->print(" | ")
-        'W'->print("| | |")
-        'X'->print(" \\/ ")
-        'Y'->print(" \\_/ ")
-        ' '-> print("    ")
-        else ->print("  / ")
+    fun getNameTagLength(string: String): Int{
+        var length: Int =0
+        for(char in string){
+            length+= this.getCharLength(char)
+        }
+        return length+string.length-1
     }
 }
 
-fun writeCharLine3(char: Char){
-    when(char){
-        in arrayOf('A','H')->print("|  |")
-        in arrayOf('B','G')->print("|__]")
-        in arrayOf('C','E')->print("|___")
-        'D'->print("|__/")
-        in arrayOf('F','P')->print("|   ")
-        'I'->print("|")
-        'J'->print("_|")
-        'K'->print("| \\_")
-        'L'->print("|___")
-        'M'->print("|  |")
-        'N'->print("| \\|")
-        in arrayOf('O','U')->print("|__|")
-        'Q'->print("|_\\|")
-        'R'->print("|  \\")
-        'S'->print("___]")
-        'T'->print(" | ")
-        'V'->print(" \\/ ")
-        'W'->print("|_|_|")
-        'X'->print("_/\\_")
-        'Y'->print("  |  ")
-        ' '-> print("    ")
-        else ->print(" /__")
+class Tag(val name: String, val status: String){
+
+    private var tagLength: Int = 0
+    private var nameLength: Int = 0
+
+    init{
+        this.nameLength = CharacterPrinter.getNameTagLength(this.name)
+        tagLength = if (this.nameLength>this.status.length) this.nameLength else this.status.length
     }
+
+    public fun print(){
+        this.printHorizontalBorder()
+        this.printLineWithHorizontalBorder(this.getNameLine(1))
+        this.printLineWithHorizontalBorder(this.getNameLine(2))
+        this.printLineWithHorizontalBorder(this.getNameLine(3))
+        this.printLineWithHorizontalBorder(this.getPaddedStringForStatus())
+        this.printHorizontalBorder()
+    }
+
+    private fun printLineWithHorizontalBorder(line: String){
+        println("*  $line  *")
+    }
+
+    private fun getNameLine(lineNum: Int): String{
+        var lineToPrint = ArrayList<String>()
+        for(char in this.name){
+            lineToPrint.add(when(lineNum){
+                1->CharacterPrinter.getCharLine1(char)
+                2->CharacterPrinter.getCharLine2(char)
+                3->CharacterPrinter.getCharLine3(char)
+                else -> ""
+            })
+        }
+        var unpaddedString = lineToPrint.joinToString(" ")
+
+        return this.getPaddedStringForName(unpaddedString)
+    }
+
+    private fun isEven(string: String):Boolean{
+        return string.length%2==0
+    }
+    private fun getPaddedStringForName(string: String):String{
+        var midLength = this.tagLength/2 + this.nameLength/2
+        //if(!isEven(string)) midLength+=1
+
+        return string.padStart(midLength,' ').padEnd(this.tagLength, ' ')
+    }
+
+    private fun getPaddedStringForStatus(): String{
+        var midLength = this.tagLength/2 + this.status.length/2
+        if(!isEven(this.status)) midLength+=1
+        return this.status.padStart(midLength, ' ').padEnd(this.tagLength,' ')
+    }
+
+    private fun printHorizontalBorder(){
+        println("".padStart(this.tagLength+6,'*'))
+    }
+}
+
+fun main(){
+    var tag = Tag("Bill Gates".toUpperCase(), "VIP")
+    tag.print()
+
+    var tag2 = Tag("Tom Smith".toUpperCase(), "Worker")
+    tag2.print()
+
+    var tag3=Tag("Mr Anonimous".toUpperCase(),"Participant")
+    tag3.print()
+
+    var tag4= Tag("John S".toUpperCase(),"Worker-coworker-superdupercoworker")
+    tag4.print()
 }
