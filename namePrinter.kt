@@ -19,29 +19,11 @@ fun main(args: Array<String>) {
     val nameLength = getPrintLength(nameAllCaps)
     var statusLength = status.length
 
-    var printLength = 0
-    var namePad = 2 
-    var statusPad = 2
-    if(nameLength > statusLength){
-        printLength = nameLength
-        statusPad = ((nameLength/2).toInt() - (statusLength/2).toInt())-1
-    }else{
-        printLength = statusLength
-        namePad = ((statusLength/2).toInt() -  (nameLength/2).toInt())-1
-    }
-
-    var sacrificeLeftPad = printLength%2 != statusLength%2
-    println("Should sacrificeLeft pad: $sacrificeLeftPad")
-    println("Name length: $nameLength")
-    println("Status Length: $statusLength")
-    println("NamePad: $namePad")
-    println("StatusPad: $statusPad")
-    
+    val printLength = getPrintLength(nameAllCaps)
     writeStarLine(printLength+ 6)
-    printNameLine(namePad, nameAllCaps, 1)
-    printNameLine(namePad, nameAllCaps, 2)
-    printNameLine(namePad, nameAllCaps, 3)
-    printStatus(statusPad, status, sacrificeLeftPad)
+    printNameLine(2, nameAllCaps, 1)
+    printNameLine(2, nameAllCaps, 2)
+    printNameLine(2, nameAllCaps, 3)
     writeStarLine(printLength+ 6)
 }
 
@@ -69,15 +51,6 @@ fun addPadding(paddingLength: Int){
         print(" ")
     }
 }
-
-fun printStatus(padding: Int, status: String, shouldSacrificeLeftPad: Boolean){
-    print("*  ")
-    addPadding(if(shouldSacrificeLeftPad)padding-1 else padding)
-    print(status)
-    addPadding(padding)
-    println("  *")
-}
-
 
 fun writeStarLine(len: Int){
     for(i in 1..len){
